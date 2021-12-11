@@ -35,11 +35,9 @@ def part1(input, steps):
 
     flashes = 0
     for step in range(steps):
-        for p in input:
-            input[p] += 1
-
         flashed = set()
         for p in input:
+            input[p] += 1
             check_flash(p, input, flashed)
 
         flashes += len(flashed)
@@ -55,11 +53,9 @@ def part2(input):
     step = 0
     while True:
         step += 1
-        for p in input:
-            input[p] += 1
-
         flashed = set()
         for p in input:
+            input[p] += 1
             check_flash(p, input, flashed)
 
         if len(flashed) == len(input):
