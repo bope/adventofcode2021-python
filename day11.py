@@ -14,20 +14,21 @@ def neighbors(p):
             yield (x, y)
 
 
-def check_flash(p, input, flashed):
+def add_energy(p, input, flashed):
     if p in flashed:
         return
 
+    input[p] += 1
     if input[p] <= 9:
         return
+    input[p] = 0
 
     flashed.add(p)
 
     for n in neighbors(p):
         if n not in input:
             continue
-        input[n] += 1
-        check_flash(n, input, flashed)
+        add_energy(n, input, flashed)
 
 
 def part1(input, steps):
@@ -37,13 +38,10 @@ def part1(input, steps):
     for step in range(steps):
         flashed = set()
         for p in input:
-            input[p] += 1
-            check_flash(p, input, flashed)
+            add_energy(p, input, flashed)
 
         flashes += len(flashed)
 
-        for p in flashed:
-            input[p] = 0
     return flashes
 
 
@@ -55,14 +53,10 @@ def part2(input):
         step += 1
         flashed = set()
         for p in input:
-            input[p] += 1
-            check_flash(p, input, flashed)
+            add_energy(p, input, flashed)
 
         if len(flashed) == len(input):
             return step
-
-        for p in flashed:
-            input[p] = 0
 
 
 if __name__ == '__main__':
